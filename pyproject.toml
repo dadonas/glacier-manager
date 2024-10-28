@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "glacier-manager"
+version = "0.1.0"
+description = ""
+authors = ["Dadonas <danilo.freitas@luizalabs.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = {extras = ["standard"], version = "^0.115.2"}
+boto3 = "^1.35.45"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
