@@ -1,8 +1,8 @@
 O Glacier Manager foi criado para facilitar a gestão de arquivos no serviço Glacier da AWS.
 
 # O Funcionamento do Glacier
-No Glacier os arquivos ficam dentro de vaults. Através do console da AWS é possível visualizar somente esses vaults mas não os arquivos que estão dentro dele. \
-Para recurar a lista de arquivos (*inventory*), é necessário iniciar um *job*. Para baixar arquivos também é necessário iniciar um *job*. \
+No Glacier os arquivos ficam dentro de vaults. Através do console da AWS é possível visualizar somente esses vaults mas não os arquivos que estão dentro deles. \
+Para recuperar a lista de arquivos (*inventory*), é necessário iniciar um *job*. Para baixar arquivos também é necessário iniciar um *job*. \
 Existem dois tipos de operação de *job*:
 - `inventory-retrieval`: para recuperação de lista de arquivos, ou seja, o inventário.
 - `archive-retrieval`: para recuperação de arquivos. \
@@ -27,12 +27,17 @@ poetry add 'fastapi[standard]'
 ```
 
 ## Executar a aplicação
-### Iniciar o MongoDB
-`docker-compose up -d`
-### Iniciar Ambiente Virtual
-`poetry shell`
-### Iniciar Servidor Web
-`fastapi dev app.py`
+
+```
+# Iniciar o MongoDB
+docker-compose up -d
+
+# Iniciar Ambiente Virtual
+poetry shell
+
+# Iniciar Servidor Web
+fastapi dev app.py
+```
 
 ## Acessando as Informações do Mongo
 `http://localhost:8081`
@@ -54,3 +59,10 @@ curl --location 'http://localhost:8000/configs' \
 **key e secret** - Chave de acesso criada no IAM da AWS com a permissão `AmazonGlacierFullAccess`. \
 **region** - Região onde estão os vaults do Glacier. \
 **sns_topic_arn** - ARN do tópico responsável por notificar quando os archives ou inventories estivem disponíveis. Essa configuração é opcional, porém, altamente recomendada. Quando é iniciado um job para recuperação do inventário ou para download de um archive, o job expira em 24 horas. Por isso é importante ser notificado.
+
+## Listando Vaults
+```
+curl --location 'http://localhost:8000/vaults'
+```
+
+## ...
