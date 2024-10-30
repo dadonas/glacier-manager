@@ -5,7 +5,8 @@ No Glacier os arquivos ficam dentro de vaults. Através do console da AWS é pos
 Para recuperar a lista de arquivos (*inventory*), é necessário iniciar um *job*. Para baixar arquivos também é necessário iniciar um *job*. \
 Existem dois tipos de operação de *job*:
 - `inventory-retrieval`: para recuperação de lista de arquivos, ou seja, o inventário.
-- `archive-retrieval`: para recuperação de arquivos. \
+- `archive-retrieval`: para recuperação de arquivos.
+\
 Existem também os tipos de recuperação (*tier*) dessas informações:
 - `Expedited`: recuperação entre 1-5 minutos. *Tier* mais caro.
 - `Standard`: recuperação entre 1-3 horas. *Tier* de valor mediano.
