@@ -6,8 +6,7 @@ Para recuperar a lista de arquivos (*inventory*), é necessário iniciar um *job
 Existem dois tipos de operação de *job*:
 - `inventory-retrieval`: para recuperação de lista de arquivos, ou seja, o inventário.
 - `archive-retrieval`: para recuperação de arquivos.
-\
-\
+
 Existem também os tipos de recuperação (*tier*) dessas informações:
 - `Expedited`: recuperação entre 1-5 minutos. *Tier* mais caro.
 - `Standard`: recuperação entre 1-3 horas. *Tier* de valor mediano.
@@ -57,10 +56,10 @@ curl --location 'http://localhost:8000/configs' \
     "sns_topic_arn": "xxxxxxxxxxxx"
 }'
 ``` 
-**account** - Código da conta AWS. \
-**key e secret** - Chave de acesso criada no IAM da AWS com a permissão `AmazonGlacierFullAccess`. \
-**region** - Região onde estão os vaults do Glacier. \
-**sns_topic_arn** - ARN do tópico responsável por notificar quando os archives ou inventories estivem disponíveis. Essa configuração é opcional, porém, altamente recomendada. Quando é iniciado um job para recuperação do inventário ou para download de um archive, o job expira em 24 horas. Por isso é importante ser notificado.
+- **account** - Código da conta AWS.
+- **key e secret** - Chave de acesso criada no IAM da AWS com a permissão `AmazonGlacierFullAccess`.
+- **region** - Região onde estão os vaults do Glacier.
+- **sns_topic_arn** - ARN do tópico responsável por notificar quando os archives ou inventories estivem disponíveis. Essa configuração é opcional, porém, altamente recomendada. Quando é iniciado um job para recuperação do inventário ou para download de um archive, o job expira em 24 horas. Por isso é importante ser notificado.
 
 ## Listando Vaults
 ```
