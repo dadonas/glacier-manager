@@ -23,15 +23,3 @@ class Vault(BaseModel):
     inventory_status: str = "not_requested" # not_requested, requested, available
     inventory_job_id: Optional[str] = None
     archives: Optional[List[VaultArchive]] = None
-
-class Archive(BaseModel):
-    ArchiveId: str
-    ArchiveDescription: str
-    CreationDate: str
-    Size: int
-    SHA256TreeHash: str
-
-class GlacierVault(BaseModel):
-    VaultARN: str
-    InventoryDate: str
-    ArchiveList: List[Archive]

@@ -61,9 +61,18 @@ curl --location 'http://localhost:8000/configs' \
 - **region** - Região onde estão os vaults do Glacier.
 - **sns_topic_arn** - ARN do tópico responsável por notificar quando os archives ou inventories estivem disponíveis. Essa configuração é opcional, porém, altamente recomendada. Quando é iniciado um job para recuperação do inventário ou para download de um archive, o job expira em 24 horas. Por isso é importante ser notificado.
 
+## API Docs
+A documentação da API é gerada automaticamente e pode ser acessada  através da URL http://localhost:8000/docs.
+
 ## Listando Vaults
 ```
 curl --location 'http://localhost:8000/vaults'
 ```
 
 ## ...
+
+# User Experience
+![image](./assets/ux.png)
+
+# Referência
+[Glacier API Docs](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)

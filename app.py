@@ -1,13 +1,13 @@
-from fastapi import FastAPI, Header, HTTPException
-from models import AccountConfig, VaultArchive, Vault
 from http import HTTPStatus
+from typing import Optional, List
+import json
+from pymongo import MongoClient
+from botocore.exceptions import ClientError
+from fastapi import FastAPI, HTTPException
 from bson import ObjectId
 import boto3
 import consts
-from typing import Optional, List
-from pymongo import MongoClient
-from botocore.exceptions import ClientError
-import json
+from models import AccountConfig, VaultArchive, Vault
 
 app = FastAPI()
 
@@ -16,14 +16,13 @@ def post_configs(config: AccountConfig,  replace: Optional[str] = None):
     collection = app.database['config']
     saved_config = collection.find_one()
 
-    if saved_config == None:
+    if saved_config is None:
         try:
             test_client_config(config)
         except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Invalid configuration. Could not list vaults. Error: {e}")        
+            raise HTTPException(status_code=400, detail="Invalid configuration. Could not list vaults.") from e
 
         collection.insert_one(config.dict())
-        
         return config
     elif replace == 'true':
         collection.update_one(
@@ -40,7 +39,7 @@ def post_configs(config: AccountConfig,  replace: Optional[str] = None):
 def get_configs():
     saved_config = get_current_config()
 
-    if saved_config == None:
+    if saved_config is None:
         raise HTTPException(status_code=400, detail="No configuration found.")
 
     return saved_config
@@ -73,7 +72,7 @@ def get_valts():
         
         return vaults
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Failed to list vaults. Error: {e}")
+        raise HTTPException(status_code=400, detail="Failed to list vaults.") from e
 
 @app.get('/vaults/{vault_name}/inventory/status')
 def get_inventory(vault_name: str):
@@ -156,8 +155,6 @@ def check_job_status(vault_name, job_id):
             return consts.JOB_STATUS_NOT_FOUND
         else:
             print(f"ClientError: {e.response['Error']['Message']}")
-    except Exception as e:
-        print(f"An unexpected error occurred: {str(e)}")
 
 @app.get('/vaults/{vault_name}/inventory', status_code=HTTPStatus.OK)
 def download_inventory(vault_name: str):
@@ -214,7 +211,7 @@ def init_client():
     saved_config = get_current_config()
 
     if saved_config == None:
-        raise Exception(detail="No configuration found.")
+        raise HTTPException(status_code=400, detail="No configuration found.")
 
     glacier = boto3.client(
         'glacier',
