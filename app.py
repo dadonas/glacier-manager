@@ -40,7 +40,7 @@ def get_configs():
     saved_config = get_current_config()
 
     if saved_config is None:
-        raise HTTPException(status_code=400, detail="No configuration found.")
+        raise HTTPException(status_code=204, detail="No configuration found.")
 
     return saved_config
 
