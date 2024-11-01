@@ -1,3 +1,8 @@
+"""
+Constants
+"""
+
+MONGO_URL = "mongodb://user:pass@localhost:27017/"
 INVENTORY_RETRIEVAL = 'inventory-retrieval'
 ARCHIVE_RETRIEVAL = 'archive-retrieval'
 JOB_TIER_EXPEDITE = 'Expedite'
