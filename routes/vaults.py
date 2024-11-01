@@ -15,7 +15,7 @@ import consts
 
 router = APIRouter()
 
-@router.get('/vaults', response_model=List[Vault])
+@router.get('/', response_model=List[Vault])
 def get_valts():
     """
     Returns Vaults
@@ -48,7 +48,7 @@ def get_valts():
     except Exception as e:
         raise HTTPException(status_code=400, detail="Failed to list vaults.") from e
 
-@router.get('/vaults/{vault_name}/inventory/status')
+@router.get('/{vault_name}/inventory/status')
 def get_inventory(vault_name: str):
     """
     Returns inventory if avaiable or initializes a inventory-retrieval job.
@@ -96,7 +96,7 @@ def get_inventory(vault_name: str):
 
     return {'status': status}
 
-@router.get('/vaults/{vault_name}/inventory', status_code=HTTPStatus.OK)
+@router.get('/{vault_name}/inventory', status_code=HTTPStatus.OK)
 def download_inventory(vault_name: str):
     """
     Downloads inventory if ready.

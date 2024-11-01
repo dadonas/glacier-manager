@@ -3,9 +3,9 @@ Main App File
 """
 
 from fastapi import FastAPI
-import routes
+from routes import configs, vaults
 
 app = FastAPI()
 
-app.include_router(routes.configs.router, tags=["configs"])
-app.include_router(routes.vaults.router, tags=["vaults"])
+app.include_router(configs.router, prefix="/configs", tags=["configs"])
+app.include_router(vaults.router, prefix="/vaults", tags=["vaults"])

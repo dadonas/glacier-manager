@@ -13,7 +13,7 @@ from core.utils import get_current_config
 
 router = APIRouter()
 
-@router.post('/configs', status_code=HTTPStatus.CREATED, response_model=AccountConfig)
+@router.post('/', status_code=HTTPStatus.CREATED, response_model=AccountConfig)
 def post_configs(config: AccountConfig,  replace: Optional[str] = None):
     """
     Create or Replace Config
@@ -40,7 +40,7 @@ def post_configs(config: AccountConfig,  replace: Optional[str] = None):
         detail="Account already set. Use query param replace=true to override this one."
     )
 
-@router.get('/configs', response_model=AccountConfig)
+@router.get('/', response_model=AccountConfig)
 def get_configs():
     """
     Returns AWS Account configuration if set
