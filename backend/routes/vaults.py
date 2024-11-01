@@ -11,7 +11,7 @@ from models import VaultArchive, Vault
 from core.aws import init_client, initiate_job, check_job_status
 from core.utils import get_current_config
 from core.db import get_collection
-import consts
+import backend.consts as consts
 
 router = APIRouter()
 

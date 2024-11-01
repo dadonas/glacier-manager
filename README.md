@@ -37,7 +37,7 @@ docker-compose up -d
 poetry shell
 
 # Iniciar Servidor Web
-fastapi dev app.py
+fastapi dev backend/main.py
 ```
 
 ## Acessando as Informações do Mongo

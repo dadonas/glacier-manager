@@ -3,7 +3,7 @@
 DB Operations
 """
 from pymongo import MongoClient
-from consts import MONGO_URL
+from backend.consts import MONGO_URL
 
 client = MongoClient(MONGO_URL)
 database = client["glacier_manager"]

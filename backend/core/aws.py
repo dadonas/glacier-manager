@@ -5,7 +5,7 @@ import boto3
 from botocore.exceptions import ClientError
 from fastapi import HTTPException
 from core.utils import get_current_config
-from consts import JOB_STATUS_REQUESTED, JOB_STATUS_NOT_FOUND, JOB_STATUS_AVAILABLE
+from backend.consts import JOB_STATUS_REQUESTED, JOB_STATUS_NOT_FOUND, JOB_STATUS_AVAILABLE
 
 def init_client():
     """
