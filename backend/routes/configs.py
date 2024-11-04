@@ -14,9 +14,9 @@ from core.utils import get_current_config
 router = APIRouter()
 
 @router.post('/', status_code=HTTPStatus.CREATED, response_model=AccountConfig)
-def post_configs(config: AccountConfig,  replace: Optional[str] = None):
+def post_configs(config: AccountConfig):
     """
-    Create or Replace Config
+    Create Config
     """
     collection = get_collection('config')
     saved_config = collection.find_one()
@@ -24,21 +24,36 @@ def post_configs(config: AccountConfig,  replace: Optional[str] = None):
     if saved_config is None:
         try:
             test_client_config(config)
+            collection.insert_one(config.model_dump())
+            return config
         except Exception as e:
             raise HTTPException(status_code=400, detail="Could not list vaults.") from e
 
-        collection.insert_one(config.dict())
-        return config
-    elif replace == 'true':
-        collection.update_one(
-            {"_id": ObjectId(saved_config['_id'])},
-            {"$set": config.dict()}
-        )
-        return config
     raise HTTPException(
         status_code=400,
-        detail="Account already set. Use query param replace=true to override this one."
+        detail="Account already set."
     )
+
+@router.put('/', status_code=HTTPStatus.OK, response_model=AccountConfig)
+def put_configs(config: AccountConfig):
+    """
+    Replace Config
+    """
+    collection = get_collection('config')
+    saved_config = collection.find_one()
+
+    if saved_config is None:
+        raise HTTPException(status_code=400, detail="There's no config set yet.")
+    
+    try:
+        test_client_config(config)
+        collection.update_one(
+            {"_id": ObjectId(saved_config['_id'])},
+            {"$set": config.model_dump()}
+        )
+        return config
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="Could not list vaults.") from e
 
 @router.get('/', response_model=AccountConfig)
 def get_configs():
