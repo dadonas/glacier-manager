@@ -1,5 +1,9 @@
-from pydantic import BaseModel
+"""
+Models
+"""
+
 from typing import List, Optional
+from pydantic import BaseModel
 
 class AccountConfig(BaseModel):
     account: str
@@ -23,3 +27,10 @@ class Vault(BaseModel):
     inventory_status: str = "not_requested" # not_requested, requested, available
     inventory_job_id: Optional[str] = None
     archives: Optional[List[VaultArchive]] = None
+
+class InventoryRetrievalRequest(BaseModel):
+    vault_name: str
+
+class ArchiveRetrievalRequest(BaseModel):
+    archive_id: str
+    tier: Optional[str] = None

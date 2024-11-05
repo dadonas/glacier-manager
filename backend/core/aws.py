@@ -5,7 +5,7 @@ import boto3
 from botocore.exceptions import ClientError
 from fastapi import HTTPException
 from core.utils import get_current_config
-from backend.consts import JOB_STATUS_REQUESTED, JOB_STATUS_NOT_FOUND, JOB_STATUS_AVAILABLE
+from backend.consts import JOB_STATUS_REQUESTED, JOB_STATUS_NOT_FOUND, JOB_STATUS_AVAILABLE, ARCHIVE_RETRIEVAL
 
 def init_client():
     """
@@ -37,7 +37,7 @@ def initiate_job(glacier, vault_name, job_type, tier: str = ''):
     if config.sns_topic_arn is not None:
         params['SNSTopic'] = config.sns_topic_arn
 
-    if tier is not '':
+    if (tier != '' and job_type == ARCHIVE_RETRIEVAL):
         params['Tier'] = tier
 
     response = glacier.initiate_job(

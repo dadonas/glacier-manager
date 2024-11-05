@@ -3,7 +3,6 @@ Configs Router
 """
 
 from http import HTTPStatus
-from typing import Optional
 import boto3
 from fastapi import APIRouter, HTTPException
 from bson import ObjectId
@@ -44,7 +43,6 @@ def put_configs(config: AccountConfig):
 
     if saved_config is None:
         raise HTTPException(status_code=400, detail="There's no config set yet.")
-    
     try:
         test_client_config(config)
         collection.update_one(
