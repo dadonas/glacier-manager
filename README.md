@@ -69,6 +69,8 @@ A documentação da API é gerada automaticamente e pode ser acessada  através 
 curl --location 'http://localhost:8000/vaults'
 ```
 
+test
+
 ## ...
 
 # User Experience
